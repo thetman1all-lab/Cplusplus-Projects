@@ -23,6 +23,7 @@ int main() {
     std::string line; // Define a string for the line being read in the while loop
     int line_num = 0; // Keep count of line number
     int skipped_lines = 0; // Keep count of comments, empty, or invalid lines
+    int valid_readings = 0; // Keep count of how many valid readings there are
     std::map<std::string, std::vector<double>> sensor_data;   // Declare the map BEFORE the while loop
 
     while (std::getline(infile, line)) {
@@ -64,8 +65,8 @@ int main() {
         }
 
         // === HERE is where the data STORED ===
-        // Only reaches here on a completely good line
         sensor_data[sensor].push_back(value); // <--- this is the key line where data is now stored for the report
+        valid_readings++; // Can only increment here if everything else prior ran smoothly
     }
 
     infile.close();
@@ -86,7 +87,7 @@ int main() {
             << "============================================================" << "\n\n"
             << "Input file processed: " << file_path
             << "\nTotal lines in file: " << line_num
-            << "\nValid numeric sensor readings processed: " << line_num - skipped_lines
+            << "\nValid numeric sensor readings processed: " << valid_readings
             << "\nLines skipped (comments, empty, or invalid): " << skipped_lines << "\n\n"
             << "------------------------------------------------------------" << "\n" 
             << "SENSOR STATISTICS (values shown in log-native units)" << "\n"
@@ -102,7 +103,7 @@ int main() {
         double min_v = *std::min_element(values.begin(), values.end());
         double max_v = *std::max_element(values.begin(), values.end());
         
-        double sum = 0; // Fresh sum for each sensor type
+        double sum = 0.0; // Fresh sum for each sensor type
 
         for (double num : values) { // Sum all values for current sensor type
             sum += num;
@@ -119,8 +120,6 @@ int main() {
                 << "  Maximum value: " << max_v << "\n"
                 << "  Average value: " << average_v << "\n\n";
     }
-
-    // All the other gobletigook goes here
 
     //------------------------------------------------------------------------------------------------------------------
     // Footer
