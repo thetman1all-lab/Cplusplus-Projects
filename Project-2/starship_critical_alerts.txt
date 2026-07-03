@@ -1,0 +1,17 @@
+============================================================
+          STARSHIP AVIONICS REPORT
+============================================================
+
+Input files processed: starship_engine_telemetry.txt starship_environmental_telemetry.txt
+Total lines in files: 26
+Valid numeric sensor readings processed: 23
+Lines skipped (comments, empty, or invalid): 3
+
+------------------------------------------------------------
+CRITICAL WARNING RECORDS
+------------------------------------------------------------
+
+2026-07-03T08:15:01ZEngine1_Temperature2468.3KWARNING2026-07-03T08:15:04ZEngine2_Pressure131.9barWARNING2026-07-03T08:15:10ZEngine2_Temperature2459.4KWARNING2026-07-03T08:15:02ZFuel_Tank_Pressure47.8barWARNING2026-07-03T08:15:07ZVelocity8670.1m/sWARNING============================================================
+End of Report
+============================================================
+Total warnings: 5

@@ -227,7 +227,11 @@ int main() {
 
         if (rec.status == "WARNING") {
             warning_count++;
-            outfile << rec.timestamp << rec.sensor << rec.value << rec.unit << rec.status;
+            outfile << rec.timestamp << "\n"
+                    << rec.sensor << "\n"
+                    << rec.value << "\n"
+                    << rec.unit << "\n"
+                    << rec.status << "\n\n";
         }
     }
 
