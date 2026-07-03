@@ -15,37 +15,37 @@ Sensor: Altitude
   Number of readings: 5
   Minimum value: 12500.00
   Maximum value: 12700.80
-  Average value: 12600.00
+  Average value: 12600.30
 
 Sensor: Engine1_Pressure
   Number of readings: 5
   Minimum value: 127.90
   Maximum value: 129.50
-  Average value: 128.20
+  Average value: 128.72
 
 Sensor: Engine1_Temperature
   Number of readings: 6
   Minimum value: 2450.50
   Maximum value: 2454.50
-  Average value: 2451.83
+  Average value: 2452.30
 
 Sensor: Engine2_Temperature
   Number of readings: 6
   Minimum value: 2447.30
   Maximum value: 2450.10
-  Average value: 2448.50
+  Average value: 2448.83
 
 Sensor: Fuel_Tank_Pressure
   Number of readings: 3
   Minimum value: 44.80
   Maximum value: 46.00
-  Average value: 45.00
+  Average value: 45.33
 
 Sensor: Velocity
   Number of readings: 5
   Minimum value: 8500.30
   Maximum value: 8575.40
-  Average value: 8536.00
+  Average value: 8536.30
 
 ============================================================
 End of Report

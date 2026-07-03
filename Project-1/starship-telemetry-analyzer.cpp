@@ -104,11 +104,9 @@ int main() {
         
         double sum = 0; // Fresh sum for each sensor type
 
-        for (int num : values) { // Sum all values for current sensor type
+        for (double num : values) { // Sum all values for current sensor type
             sum += num;
         }
-
-        std::cout << sum << "\n";
 
         double average_v = sum / values.size(); // Find average for current sensor type's values
 
