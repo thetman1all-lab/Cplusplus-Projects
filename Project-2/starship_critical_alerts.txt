@@ -11,7 +11,13 @@ Lines skipped (comments, empty, or invalid): 3
 CRITICAL WARNING RECORDS
 ------------------------------------------------------------
 
-2026-07-03T08:15:01ZEngine1_Temperature2468.3KWARNING2026-07-03T08:15:04ZEngine2_Pressure131.9barWARNING2026-07-03T08:15:10ZEngine2_Temperature2459.4KWARNING2026-07-03T08:15:02ZFuel_Tank_Pressure47.8barWARNING2026-07-03T08:15:07ZVelocity8670.1m/sWARNING============================================================
+2026-07-03T08:15:01Z Engine1_Temperature 2468.3 K WARNING
+2026-07-03T08:15:04Z Engine2_Pressure 131.9 bar WARNING
+2026-07-03T08:15:10Z Engine2_Temperature 2459.4 K WARNING
+2026-07-03T08:15:02Z Fuel_Tank_Pressure 47.8 bar WARNING
+2026-07-03T08:15:07Z Velocity 8670.1 m/s WARNING
+
+============================================================
 End of Report
 ============================================================
 Total warnings: 5
