@@ -1,0 +1,30 @@
+============================================================
+     STARSHIP AVIONICS TELEMETRY SUMMARY REPORT
+============================================================
+
+Input file processed: /home/workdir/artifacts/starship_avionics_log.txt
+Total lines in file: 33
+Valid numeric sensor readings processed: 30
+Lines skipped (comments, empty, or invalid): 3
+
+------------------------------------------------------------
+SENSOR STATISTICS (values shown in log-native units)
+------------------------------------------------------------
+
+Sensor: Altitude
+  Number of readings: 5
+  Minimum value: 12500.00
+  Maximum value: 12700.80
+  Average value: 12600.30
+
+Sensor: Engine1_Pressure
+  Number of readings: 5
+  Minimum value: 127.90
+  Maximum value: 129.50
+  Average value: 128.72
+
+... (continue for every sensor that had at least one valid reading)
+
+============================================================
+End of Report
+============================================================
