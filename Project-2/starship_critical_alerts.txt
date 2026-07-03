@@ -2,22 +2,45 @@
           STARSHIP CRITICAL ALERTS REPORT
 ============================================================
 
-Input files processed: starship_engine_telemetry.txt starship_environmental_telemetry.txt
-Total lines in files: 26
-Valid numeric sensor readings processed: 23
-Lines skipped (comments, empty, or invalid): 3
-
 ------------------------------------------------------------
 CRITICAL WARNING RECORDS
 ------------------------------------------------------------
 
-2026-07-03T08:15:01Z Engine1_Temperature 2468.3 K WARNING
-2026-07-03T08:15:04Z Engine2_Pressure 131.9 bar WARNING
-2026-07-03T08:15:10Z Engine2_Temperature 2459.4 K WARNING
-2026-07-03T08:15:02Z Fuel_Tank_Pressure 47.8 bar WARNING
-2026-07-03T08:15:07Z Velocity 8670.1 m/s WARNING
+Timestamp : 2026-07-03T08:15:01Z
+Sensor    : Engine1_Temperature
+Value     : 2468.30
+Unit      : K
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:04Z
+Sensor    : Engine2_Pressure
+Value     : 131.90
+Unit      : bar
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:10Z
+Sensor    : Engine2_Temperature
+Value     : 2459.40
+Unit      : K
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:02Z
+Sensor    : Fuel_Tank_Pressure
+Value     : 47.80
+Unit      : bar
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:07Z
+Sensor    : Velocity
+Value     : 8670.10
+Unit      : m/s
+Status    : WARNING
+------------------------------------------------------------
 
 ============================================================
-End of Report
+Total WARNING records found: 5
 ============================================================
-Total warnings: 5

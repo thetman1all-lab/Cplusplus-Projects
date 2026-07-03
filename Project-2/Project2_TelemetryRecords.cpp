@@ -83,6 +83,53 @@ void readTelemetryFile(const std::string& filename,
     infile.close();
 }
 
+void writeCriticalAlertsReport(const std::vector<TelemetryRecord>& records,
+                               const std::string& output_filename)
+{
+    std::ofstream outfile(output_filename);
+
+    if (!outfile.is_open()) {
+        std::cerr << "Error: Cannot create output file: " << output_filename << "\n";
+        return;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Header
+    //------------------------------------------------------------------------------------------------------------------
+
+    outfile << "============================================================\n"
+            << "          STARSHIP CRITICAL ALERTS REPORT\n"
+            << "============================================================\n\n"
+            << "------------------------------------------------------------\n" 
+            << "CRITICAL WARNING RECORDS\n"
+            << "------------------------------------------------------------\n\n";
+
+    int warning_count = 0; // Keep count of how many warnings there are
+
+    for (const TelemetryRecord& rec : records) {
+        /* for (const auto& x )Binds to the original elements without copying them, but marks them read-only. This is
+        the industry best practice for viewing large objects or strings.
+        */
+
+        if (rec.status == "WARNING") {
+            warning_count++;
+
+            outfile << "Timestamp : " << rec.timestamp << "\n"
+                    << "Sensor    : " << rec.sensor << "\n"
+                    << "Value     : " << std::fixed << std::setprecision(2) << rec.value << "\n"
+                    << "Unit      : " << rec.unit << "\n"
+                    << "Status    : " << rec.status << "\n"
+                    << "------------------------------------------------------------\n\n";
+        }
+    }
+
+    outfile << "============================================================\n"
+            << "Total WARNING records found: " << warning_count << "\n"
+            << "============================================================";
+
+    outfile.close();
+}
+
 int main() {
 
     std::vector<TelemetryRecord> all_records;
@@ -106,59 +153,7 @@ int main() {
     // Report Creation
     //------------------------------------------------------------------------------------------------------------------
 
-    std::ofstream outfile("starship_critical_alerts.txt"); // Create the Report text file
-
-    if (!outfile.is_open()) {
-        std::cerr << "Error: Cannot open output file\n";
-        return 1;
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // Header
-    //------------------------------------------------------------------------------------------------------------------
-
-    outfile << "============================================================" << "\n"
-            << "          STARSHIP CRITICAL ALERTS REPORT" << "\n"
-            << "============================================================" << "\n\n"
-            << "Input files processed: starship_engine_telemetry.txt starship_environmental_telemetry.txt\n"
-            << "Total lines in files: " << line_num << "\n"
-            << "Valid numeric sensor readings processed: " << valid_readings << "\n"
-            << "Lines skipped (comments, empty, or invalid): " << skipped_lines << "\n\n"
-            << "------------------------------------------------------------" << "\n" 
-            << "CRITICAL WARNING RECORDS" << "\n"
-            << "------------------------------------------------------------" << "\n\n";
-
-    //------------------------------------------------------------------------------------------------------------------
-    // Data Analysis
-    //------------------------------------------------------------------------------------------------------------------
-
-    int warning_count = 0; // Keep count of how many warnings there are
-
-    for (const TelemetryRecord& rec : all_records) {
-        /* for (const auto& x )Binds to the original elements without copying them, but marks them read-only. This is
-        the industry best practice for viewing large objects or strings.
-        */
-
-        if (rec.status == "WARNING") {
-            warning_count++;
-            outfile << rec.timestamp << " "
-                    << rec.sensor << " "
-                    << rec.value << " "
-                    << rec.unit << " "
-                    << rec.status << "\n";
-        }
-    }
-
-    //------------------------------------------------------------------------------------------------------------------
-    // Footer
-    //------------------------------------------------------------------------------------------------------------------
-
-    outfile << "\n============================================================" << "\n"
-            << "End of Report" << "\n"
-            << "============================================================" << "\n"
-            << "Total warnings: " << warning_count;
-
-    outfile.close();
+    writeCriticalAlertsReport(all_records,"starship_critical_alerts.txt");
 
     return 0;
 }
