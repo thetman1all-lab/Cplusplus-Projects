@@ -16,25 +16,32 @@ struct TelemetryRecord {
 };
 
 int main() {
+
     //------------------------------------------------------------------------------------------------------------------
-    // Data Reading
+    // Data Reading First File
     //------------------------------------------------------------------------------------------------------------------
 
-    std::string file_path = "/Users/wardkimball/Desktop/Misc/Computing/Cplusplus-Projects/Project-1/starship_avionics_log.txt"; // String variable to input file for futur use in script
-    std::ifstream infile(file_path);
+    std::string engine_path = "starship_engine_telemetry.txt"; // String variable to engine file
+    std::ifstream inenginefile(engine_path);
 
-    if (!infile.is_open()) { // Check if the data file can be opened
+    if (!inenginefile.is_open()) { // Check if the data file can be opened
         std::cerr << "Error: Cannot open input file\n";
         return 1;
     }
 
     std::string line; // Define a string for the line being read in the while loop
-    int line_num = 0; // Keep count of line number
-    int skipped_lines = 0; // Keep count of comments, empty, or invalid lines
-    int valid_readings = 0; // Keep count of how many valid readings there are
-    std::map<std::string, std::vector<double>> sensor_data;   // Declare the map BEFORE the while loop
 
-    while (std::getline(infile, line)) {
+    int line_num = 0; // Keep count of line number
+
+    int skipped_lines = 0; // Keep count of comments, empty, or invalid lines
+
+    int valid_readings = 0; // Keep count of how many valid readings there are
+
+    std::vector<TelemetryRecord> all_records;   // empty vector of our struct type
+
+    // std::map<std::string, std::vector<double>> sensor_data;   // Declare the map BEFORE the while loop
+
+    while (std::getline(inenginefile, line)) {
         line_num++;
 
         if (line.empty() || line[0] == '#') { // Empty OR commented '#' lines are to be skipped
@@ -45,6 +52,10 @@ int main() {
         std::stringstream ss(line); // <--- fresh stream every line
 
         std::string timestamp, sensor, value_str, unit, status; // Fresh variables every iteration
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Check for readability of lines
+        //--------------------------------------------------------------------------------------------------------------
 
         if (!std::getline(ss, timestamp, ',') ||
             !std::getline(ss, sensor, ',') ||
@@ -57,6 +68,10 @@ int main() {
             continue;
         }
         
+        //--------------------------------------------------------------------------------------------------------------
+        // Try-Catch for value conversion from string to double
+        //--------------------------------------------------------------------------------------------------------------
+
         double value; // Define fresh value to store the conversion of the string to a double
 
         try {
@@ -72,61 +87,148 @@ int main() {
             continue;
         }
 
-        // === HERE is where the data STORED ===
-        sensor_data[sensor].push_back(value); // <--- this is the key line where data is now stored for the report
+        //--------------------------------------------------------------------------------------------------------------
+        // Failure cases passed. Assign values to the struct
+        //--------------------------------------------------------------------------------------------------------------
+
+        TelemetryRecord record; // Create a fresh record for each iteration
+        record.timestamp = timestamp;
+        record.sensor    = sensor;
+        record.value     = value;
+        record.unit      = unit;
+        record.status    = status;
+
+        all_records.push_back(record); // <--- this is the key line where data is now stored for the report
         valid_readings++; // Can only increment here if everything else prior ran smoothly
     }
 
-    infile.close();
+    inenginefile.close();
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Data Reading Second File
+    //------------------------------------------------------------------------------------------------------------------
+
+    std::string environmental_path = "starship_environmental_telemetry.txt"; // String variable to environmental input file
+    std::ifstream inenvifile(environmental_path);
+
+    if (!inenvifile.is_open()) { // Check if the data file can be opened
+        std::cerr << "Error: Cannot open input file\n";
+        return 1;
+    }
+
+    while (std::getline(inenvifile, line)) {
+        line_num++;
+
+        if (line.empty() || line[0] == '#') { // Empty OR commented '#' lines are to be skipped
+            skipped_lines++;
+            continue;
+        }
+
+        std::stringstream ss(line); // <--- fresh stream every line
+
+        std::string timestamp, sensor, value_str, unit, status; // Fresh variables every iteration
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Check for readability of lines
+        //--------------------------------------------------------------------------------------------------------------
+
+        if (!std::getline(ss, timestamp, ',') ||
+            !std::getline(ss, sensor, ',') ||
+            !std::getline(ss, value_str, ',') ||
+            !std::getline(ss, unit, ',') ||
+            !std::getline(ss, status, ',')) {
+
+            std::cerr << "Warning: Malformed line " << line_num 
+                      << " (wrong number of fields), skipping.\n";
+            continue;
+        }
+        
+        //--------------------------------------------------------------------------------------------------------------
+        // Try-Catch for value conversion from string to double
+        //--------------------------------------------------------------------------------------------------------------
+
+        double value; // Define fresh value to store the conversion of the string to a double
+
+        try {
+            value = std::stod(value_str);
+        } catch (const std::invalid_argument& e) {
+            std::cerr << "Warning: Invalid numeric value on line " << line_num 
+                      << " ('" << value_str << "'), skipping.\n";
+            skipped_lines++;
+            continue;
+        } catch (const std::out_of_range& e) {
+            std::cerr << "Warning: Value out of range on line " << line_num << "\n";
+            skipped_lines++;
+            continue;
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+        // Failure cases passed. Assign values to the struct
+        //--------------------------------------------------------------------------------------------------------------
+
+        TelemetryRecord record; // Create a fresh record for each iteration
+        record.timestamp = timestamp;
+        record.sensor    = sensor;
+        record.value     = value;
+        record.unit      = unit;
+        record.status    = status;
+
+        all_records.push_back(record); // <--- this is the key line where data is now stored for the report
+        valid_readings++; // Can only increment here if everything else prior ran smoothly
+    }
+
+    inenvifile.close();
 
     //------------------------------------------------------------------------------------------------------------------
     // Report Creation
     //------------------------------------------------------------------------------------------------------------------
     
-    std::ofstream outfile("/Users/wardkimball/Desktop/Misc/Computing/Cplusplus-Projects/Project-1/starship-avionics-summary.txt"); // Create the Report text file
+    /*
+    After both files have been completely read and merged:
+    - Print to std::cout a brief summary: total number of records loaded from both files combined.
+    - Create and write to a new output file /home/workdir/artifacts/starship_critical_alerts.txt containing:
+    - A professional header
+    - A section titled "CRITICAL WARNING RECORDS" that lists only the records whose status member equals "WARNING". For each warning record print all five fields on separate indented lines.
+    A footer with the total number of warning records found.
+    */
+
+    std::ofstream outfile("starship_critical_alerts.txt"); // Create the Report text file
 
     if (!outfile.is_open()) {
         std::cerr << "Error: Cannot open output file\n";
         return 1;
     }
+
+    //------------------------------------------------------------------------------------------------------------------
     // Header
+    //------------------------------------------------------------------------------------------------------------------
+
     outfile << "============================================================" << "\n"
-            << "     STARSHIP AVIONICS TELEMETRY SUMMARY REPORT" << "\n"
+            << "          STARSHIP AVIONICS REPORT" << "\n"
             << "============================================================" << "\n\n"
-            << "Input file processed: " << file_path
-            << "\nTotal lines in file: " << line_num
-            << "\nValid numeric sensor readings processed: " << valid_readings
-            << "\nLines skipped (comments, empty, or invalid): " << skipped_lines << "\n\n"
+            << "Input files processed: " << engine_path << " " << environmental_path << "\n"
+            << "Total lines in files: " << line_num << "\n"
+            << "Valid numeric sensor readings processed: " << valid_readings << "\n"
+            << "Lines skipped (comments, empty, or invalid): " << skipped_lines << "\n\n"
             << "------------------------------------------------------------" << "\n" 
-            << "SENSOR STATISTICS (values shown in log-native units)" << "\n"
+            << "CRITICAL WARNING RECORDS" << "\n"
             << "------------------------------------------------------------" << "\n\n";
 
     //------------------------------------------------------------------------------------------------------------------
     // Data Analysis
     //------------------------------------------------------------------------------------------------------------------
 
-    for (const auto& [sensor, values] : sensor_data) { // const auto& x)Binds to the original elements without copying them, but marks them read-only. This is the industry best practice for viewing large objects or strings.
-        if (values.empty()) continue;
+    int warning_count = 0; // Keep count of how many warnings there are
 
-        double min_v = *std::min_element(values.begin(), values.end());
-        double max_v = *std::max_element(values.begin(), values.end());
-        
-        double sum = 0.0; // Fresh sum for each sensor type
+    for (const TelemetryRecord& rec : all_records) {
+        /* for (const auto& x )Binds to the original elements without copying them, but marks them read-only. This is
+        the industry best practice for viewing large objects or strings.
+        */
 
-        for (double num : values) { // Sum all values for current sensor type
-            sum += num;
+        if (rec.status == "WARNING") {
+            warning_count++;
+            outfile << rec.timestamp << rec.sensor << rec.value << rec.unit << rec.status;
         }
-
-        double average_v = sum / values.size(); // Find average for current sensor type's values
-
-        outfile << "Sensor: " << sensor << "\n"
-                << "  Number of readings: " << values.size() << "\n";
-
-        outfile << std::fixed << std::setprecision(2); // Set the precision of all reported values to 2 decimal places
-
-        outfile << "  Minimum value: " << min_v << "\n"
-                << "  Maximum value: " << max_v << "\n"
-                << "  Average value: " << average_v << "\n\n";
     }
 
     //------------------------------------------------------------------------------------------------------------------
@@ -135,7 +237,8 @@ int main() {
 
     outfile << "============================================================" << "\n"
             << "End of Report" << "\n"
-            << "============================================================";
+            << "============================================================" << "\n"
+            << "Total warnings: " << warning_count;
 
     outfile.close();
 
