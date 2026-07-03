@@ -1,6 +1,45 @@
 ============================================================
-STARSHIP AVIONICS TELEMETRY SUMMARY REPORT
+     STARSHIP AVIONICS TELEMETRY SUMMARY REPORT
 ============================================================
+
+Input file processed: /Users/wardkimball/Desktop/Misc/Computing/Cplusplus-Projects/Project-1/starship_avionics_log.txt
+Total lines in file: 33
+Valid numeric sensor readings processed: 30
+Lines skipped (comments, empty, or invalid): 3
+
+------------------------------------------------------------
+SENSOR STATISTICS (values shown in log-native units)
+------------------------------------------------------------
+
+Sensor: Altitude
+  Minimum value: 12500
+  Maximum value: 12700.8
+  Average value: 12600
+
+Sensor: Engine1_Pressure
+  Minimum value: 127.9
+  Maximum value: 129.5
+  Average value: 128.2
+
+Sensor: Engine1_Temperature
+  Minimum value: 2450.5
+  Maximum value: 2454.5
+  Average value: 2451.83
+
+Sensor: Engine2_Temperature
+  Minimum value: 2447.3
+  Maximum value: 2450.1
+  Average value: 2448.5
+
+Sensor: Fuel_Tank_Pressure
+  Minimum value: 44.8
+  Maximum value: 46
+  Average value: 45
+
+Sensor: Velocity
+  Minimum value: 8500.3
+  Maximum value: 8575.4
+  Average value: 8536
 
 ============================================================
 End of Report

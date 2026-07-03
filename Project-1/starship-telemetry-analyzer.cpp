@@ -12,7 +12,8 @@ int main() {
     // Data Reading
     //------------------------------------------------------------------------------------------------------------------
 
-    std::ifstream infile("/Users/wardkimball/Desktop/Misc/Computing/Cplusplus-Projects/Project-1/starship_avionics_log.txt");
+    std::string file_path = "/Users/wardkimball/Desktop/Misc/Computing/Cplusplus-Projects/Project-1/starship_avionics_log.txt"; // String variable to input file for futur use in script
+    std::ifstream infile(file_path);
 
     if (!infile.is_open()) { // Check if the data file can be opened
         std::cerr << "Error: Cannot open input file\n";
@@ -20,14 +21,15 @@ int main() {
     }
 
     std::string line; // Define a string for the line being read in the while loop
-    int line_num = 0; // Keep track of line number
+    int line_num = 0; // Keep count of line number
+    int skipped_lines = 0; // Keep count of comments, empty, or invalid lines
     std::map<std::string, std::vector<double>> sensor_data;   // Declare the map BEFORE the while loop
 
     while (std::getline(infile, line)) {
         line_num++;
 
         if (line.empty() || line[0] == '#') { // Empty OR commented '#' lines are to be skipped
-            // skipped++;
+            skipped_lines++;
             continue;
         }
 
@@ -53,10 +55,12 @@ int main() {
         } catch (const std::invalid_argument& e) {
             std::cerr << "Warning: Invalid numeric value on line " << line_num 
                       << " ('" << value_str << "'), skipping.\n";
+            skipped_lines++;
             continue;
         } catch (const std::out_of_range& e) {
             std::cerr << "Warning: Value out of range on line " << line_num << "\n";
-        continue;
+            skipped_lines++;
+            continue;
         }
 
         // === HERE is where the data STORED ===
@@ -78,8 +82,15 @@ int main() {
     }
     // Header
     outfile << "============================================================" << "\n"
-            << "STARSHIP AVIONICS TELEMETRY SUMMARY REPORT" << "\n"
-            << "============================================================" << "\n\n";
+            << "     STARSHIP AVIONICS TELEMETRY SUMMARY REPORT" << "\n"
+            << "============================================================" << "\n\n"
+            << "Input file processed: " << file_path
+            << "\nTotal lines in file: " << line_num
+            << "\nValid numeric sensor readings processed: " << line_num - skipped_lines
+            << "\nLines skipped (comments, empty, or invalid): " << skipped_lines << "\n\n"
+            << "------------------------------------------------------------" << "\n" 
+            << "SENSOR STATISTICS (values shown in log-native units)" << "\n"
+            << "------------------------------------------------------------" << "\n\n";
 
     //------------------------------------------------------------------------------------------------------------------
     // Data Analysis
@@ -87,18 +98,22 @@ int main() {
 
     for (const auto& [sensor, values] : sensor_data) { // const auto& x)Binds to the original elements without copying them, but marks them read-only. This is the industry best practice for viewing large objects or strings.
         if (values.empty()) continue;
+
         double min_v = *std::min_element(values.begin(), values.end());
         double max_v = *std::max_element(values.begin(), values.end());
         
-        double sum = 0;
+        double sum = 0; // Fresh sum for each sensor type
 
-        for (int num : values){
+        for (int num : values) { // Sum all values for current sensor type
             sum += num;
         }
 
-        double average_v = sum / values.size();
+        double average_v = sum / values.size(); // Find average for current sensor type's values
 
-        std::cout << sensor << " | " << min_v << " | " << max_v << " | " << average_v << "\n";
+        outfile << "Sensor: " << sensor << "\n"
+                << "  Minimum value: " << min_v << "\n"
+                << "  Maximum value: " << max_v << "\n"
+                << "  Average value: " << average_v << "\n\n";
     }
 
     // All the other gobletigook goes here
