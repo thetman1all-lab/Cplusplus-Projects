@@ -1,5 +1,5 @@
 ============================================================
-          STARSHIP AVIONICS REPORT
+          STARSHIP CRITICAL ALERTS REPORT
 ============================================================
 
 Input files processed: starship_engine_telemetry.txt starship_environmental_telemetry.txt
