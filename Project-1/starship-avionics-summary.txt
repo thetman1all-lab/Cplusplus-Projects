@@ -12,31 +12,37 @@ SENSOR STATISTICS (values shown in log-native units)
 ------------------------------------------------------------
 
 Sensor: Altitude
+  Number of readings: 5
   Minimum value: 12500
   Maximum value: 12700.8
   Average value: 12600
 
 Sensor: Engine1_Pressure
+  Number of readings: 5
   Minimum value: 127.9
   Maximum value: 129.5
   Average value: 128.2
 
 Sensor: Engine1_Temperature
+  Number of readings: 6
   Minimum value: 2450.5
   Maximum value: 2454.5
   Average value: 2451.83
 
 Sensor: Engine2_Temperature
+  Number of readings: 6
   Minimum value: 2447.3
   Maximum value: 2450.1
   Average value: 2448.5
 
 Sensor: Fuel_Tank_Pressure
+  Number of readings: 3
   Minimum value: 44.8
   Maximum value: 46
   Average value: 45
 
 Sensor: Velocity
+  Number of readings: 5
   Minimum value: 8500.3
   Maximum value: 8575.4
   Average value: 8536
