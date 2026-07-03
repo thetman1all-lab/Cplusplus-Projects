@@ -108,11 +108,16 @@ int main() {
             sum += num;
         }
 
+        std::cout << sum << "\n";
+
         double average_v = sum / values.size(); // Find average for current sensor type's values
 
         outfile << "Sensor: " << sensor << "\n"
-                << "  Number of readings: " << values.size() << "\n"
-                << "  Minimum value: " << min_v << "\n"
+                << "  Number of readings: " << values.size() << "\n";
+
+        outfile << std::fixed << std::setprecision(2); // Set the precision of all reported values to 2 decimal places
+
+        outfile << "  Minimum value: " << min_v << "\n"
                 << "  Maximum value: " << max_v << "\n"
                 << "  Average value: " << average_v << "\n\n";
     }
