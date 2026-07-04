@@ -1,0 +1,13 @@
+timestamp,sensor,value,unit,status
+2026-07-03T08:15:00Z,Altitude,12850.5,m,OK
+2026-07-03T08:15:01Z,Velocity,8620.7,m/s,OK
+2026-07-03T08:15:02Z,Fuel_Tank_Pressure,47.8,bar,WARNING
+2026-07-03T08:15:03Z,Altitude,12910.2,m,OK
+2026-07-03T08:15:04Z,Velocity,8645.3,m/s,OK
+2026-07-03T08:15:05Z,Fuel_Tank_Pressure,48.5,bar,OK
+2026-07-03T08:15:06Z,Altitude,12975.0,m,OK
+2026-07-03T08:15:07Z,Velocity,8670.1,m/s,WARNING
+2026-07-03T08:15:08Z,Fuel_Tank_Pressure,46.9,bar,OK
+2026-07-03T08:15:09Z,Altitude,13040.8,m,OK
+2026-07-03T08:15:10Z,Velocity,8695.4,m/s,OK
+2026-07-03T08:15:11Z,Fuel_Tank_Pressure,49.2,bar,OK
