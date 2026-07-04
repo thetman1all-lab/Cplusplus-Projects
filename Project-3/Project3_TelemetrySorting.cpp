@@ -15,6 +15,8 @@ struct TelemetryRecord {
     std::string status;
 };
 
+//======================================================================================================================
+
 void readTelemetryFile(const std::string& filename,
                        std::vector<TelemetryRecord>& records,
                        int& line_num,
@@ -83,6 +85,8 @@ void readTelemetryFile(const std::string& filename,
     infile.close();
 }
 
+//======================================================================================================================
+
 void writeSortedWarningsReport(const std::vector<TelemetryRecord>& records,
                                const std::string& output_filename)
 {
@@ -120,12 +124,36 @@ void writeSortedWarningsReport(const std::vector<TelemetryRecord>& records,
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Footer
+    //------------------------------------------------------------------------------------------------------------------
+
     outfile << "============================================================\n"
             << "Total WARNING records found: " << warning_count << "\n"
             << "============================================================";
 
     outfile.close();
+
+    std::cout << "Number of WARNING records written           : " << warning_count << "\n";
 }
+
+//======================================================================================================================
+
+// Helper function to determine if a record meets high-value criteria (returns true)
+bool isHighValueAlert(const TelemetryRecord& rec) {
+    if (rec.sensor == "Engine1_Temperature" || rec.sensor == "Engine2_Temperature") {
+        return rec.value > 2460.0;
+    }
+    else if (rec.sensor == "Engine1_Pressure" || rec.sensor == "Engine2_Pressure") {
+        return rec.value > 130.0;
+    }
+    else if (rec.sensor == "Fuel_Tank_Pressure") {
+        return rec.value > 48.0;
+    }
+    return false;   // Not a sensor we're monitoring for high values (returns false)
+}
+
+//======================================================================================================================
 
 void HighValueAlertReport(const std::vector<TelemetryRecord>& records,
                                const std::string& output_filename)
@@ -145,12 +173,14 @@ void HighValueAlertReport(const std::vector<TelemetryRecord>& records,
             << "          STARSHIP HIGH VALUE ALERTS REPORT\n"
             << "============================================================\n\n"
             << "------------------------------------------------------------\n" 
-            << "CRITICAL WARNING RECORDS\n"
+            << "HIGH VALUE ALERT RECORDS\n"
             << "------------------------------------------------------------\n\n";
 
-    for (const TelemetryRecord& rec : records) {
+    int alert_count = 0;
 
-        if (rec.sensor == "Engine1_Temperature" || rec.sensor == "Engine2_Temperature" && rec.value > 2460.0) {
+    for (const TelemetryRecord& rec : records) {
+        if (isHighValueAlert(rec)) {
+            alert_count++;
 
             outfile << "Timestamp : " << rec.timestamp << "\n"
                     << "Sensor    : " << rec.sensor << "\n"
@@ -160,7 +190,17 @@ void HighValueAlertReport(const std::vector<TelemetryRecord>& records,
                     << "------------------------------------------------------------\n\n";
         }
     }
-    
+    //------------------------------------------------------------------------------------------------------------------
+    // Footer
+    //------------------------------------------------------------------------------------------------------------------
+
+    outfile << "============================================================\n"
+            << "Total ALERT records found: " << alert_count << "\n"
+            << "============================================================";
+
+    outfile.close();
+
+    std::cout << "Number of high-value alert records written  : " << alert_count << "\n";
 }
 
 //======================================================================================================================
@@ -184,16 +224,17 @@ int main() {
 
     readTelemetryFile("starship_environmental_telemetry.txt", all_records, line_num, skipped_lines, valid_readings);
 
+    std::cout << "Total records loaded                        : " << valid_readings << "\n";
+
     //------------------------------------------------------------------------------------------------------------------
     // Sorting Data
     //------------------------------------------------------------------------------------------------------------------
-
 
     std::sort(all_records.begin(), all_records.end(),           // Sort the struct values based on timestamp
         [](const TelemetryRecord& a, const TelemetryRecord& b) {
             return a.timestamp < b.timestamp;
     });
-
+    // At this point, all-records used in any other function should be sorted by date now
 
     //------------------------------------------------------------------------------------------------------------------
     // Sorted Warnings Report Creation
@@ -205,7 +246,7 @@ int main() {
     // High Value Alert Report Creation
     //------------------------------------------------------------------------------------------------------------------
 
-
+    HighValueAlertReport(all_records,"starship_high_value_alerts.txt");
 
     return 0;
 }

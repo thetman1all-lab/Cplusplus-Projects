@@ -1,0 +1,81 @@
+============================================================
+          STARSHIP HIGH VALUE ALERTS REPORT
+============================================================
+
+------------------------------------------------------------
+HIGH VALUE ALERT RECORDS
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:00Z
+Sensor    : Engine1_Temperature
+Value     : 2465.80
+Unit      : K
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:01Z
+Sensor    : Engine1_Temperature
+Value     : 2468.30
+Unit      : K
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:03Z
+Sensor    : Engine1_Pressure
+Value     : 132.40
+Unit      : bar
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:04Z
+Sensor    : Engine2_Pressure
+Value     : 131.90
+Unit      : bar
+Status    : WARNING
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:05Z
+Sensor    : Engine1_Temperature
+Value     : 2470.20
+Unit      : K
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:05Z
+Sensor    : Fuel_Tank_Pressure
+Value     : 48.50
+Unit      : bar
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:07Z
+Sensor    : Engine1_Pressure
+Value     : 133.10
+Unit      : bar
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:08Z
+Sensor    : Engine2_Pressure
+Value     : 130.80
+Unit      : bar
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:09Z
+Sensor    : Engine1_Temperature
+Value     : 2462.90
+Unit      : K
+Status    : OK
+------------------------------------------------------------
+
+Timestamp : 2026-07-03T08:15:11Z
+Sensor    : Fuel_Tank_Pressure
+Value     : 49.20
+Unit      : bar
+Status    : OK
+------------------------------------------------------------
+
+============================================================
+Total ALERT records found: 10
+============================================================
