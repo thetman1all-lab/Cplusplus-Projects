@@ -1,0 +1,13 @@
+timestamp,sensor,value,unit,status
+2026-07-03T08:15:00Z,Engine1_Temperature,2465.8,K,OK
+2026-07-03T08:15:01Z,Engine1_Temperature,2468.3,K,WARNING
+2026-07-03T08:15:02Z,Engine2_Temperature,2455.1,K,OK
+2026-07-03T08:15:03Z,Engine1_Pressure,132.4,bar,OK
+2026-07-03T08:15:04Z,Engine2_Pressure,131.9,bar,WARNING
+2026-07-03T08:15:05Z,Engine1_Temperature,2470.2,K,OK
+2026-07-03T08:15:06Z,Engine2_Temperature,2457.6,K,OK
+2026-07-03T08:15:07Z,Engine1_Pressure,133.1,bar,OK
+# Maintenance note - ignore this line
+2026-07-03T08:15:08Z,Engine2_Pressure,130.8,bar,OK
+2026-07-03T08:15:09Z,Engine1_Temperature,2462.9,K,OK
+2026-07-03T08:15:10Z,Engine2_Temperature,2459.4,K,WARNING
