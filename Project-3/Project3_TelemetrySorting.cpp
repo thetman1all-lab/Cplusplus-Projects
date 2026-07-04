@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <map>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
@@ -102,7 +101,7 @@ void writeSortedWarningsReport(const std::vector<TelemetryRecord>& records,
     //------------------------------------------------------------------------------------------------------------------
 
     outfile << "============================================================\n"
-            << "          STARSHIP CRITICAL ALERTS REPORT\n"
+            << "          STARSHIP WARNINGS REPORT\n"
             << "============================================================\n\n"
             << "------------------------------------------------------------\n" 
             << "CRITICAL WARNING RECORDS\n"
