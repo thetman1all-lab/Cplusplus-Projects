@@ -107,9 +107,6 @@ void writeCriticalAlertsReport(const std::vector<TelemetryRecord>& records,
     int warning_count = 0; // Keep count of how many warnings there are
 
     for (const TelemetryRecord& rec : records) {
-        /* for (const auto& x )Binds to the original elements without copying them, but marks them read-only. This is
-        the industry best practice for viewing large objects or strings.
-        */
 
         if (rec.status == "WARNING") {
             warning_count++;
