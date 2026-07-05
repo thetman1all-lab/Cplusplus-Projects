@@ -1,0 +1,26 @@
+Timestamp : 2026-07-03T08:15:01Z
+Sensor    : Engine1_Temperature
+Value     : 2468.30 K
+Status    : WARNING
+------------------------------------------------------------
+Timestamp : 2026-07-03T08:15:02Z
+Sensor    : Fuel_Tank_Pressure
+Value     : 47.80 bar
+Status    : WARNING
+------------------------------------------------------------
+Timestamp : 2026-07-03T08:15:04Z
+Sensor    : Engine2_Pressure
+Value     : 131.90 bar
+Status    : WARNING
+------------------------------------------------------------
+Timestamp : 2026-07-03T08:15:07Z
+Sensor    : Velocity
+Value     : 8670.10 m/s
+Status    : WARNING
+------------------------------------------------------------
+Timestamp : 2026-07-03T08:15:10Z
+Sensor    : Engine2_Temperature
+Value     : 2459.40 K
+Status    : WARNING
+------------------------------------------------------------
+Total WARNING records: 5
