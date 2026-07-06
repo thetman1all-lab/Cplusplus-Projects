@@ -152,7 +152,7 @@ void FleetMonitor::readSingleFile(const std::string& filename) {
         }
 
            try {
-            value2 = std::stod(battery_temp_C);
+            value2 = std::stod(battery_soc_percent);
         } catch (...) {
             std::cout << "Invalid value at line " << lineNumber << "\n";
             totalSkipped++;
@@ -160,7 +160,7 @@ void FleetMonitor::readSingleFile(const std::string& filename) {
         }
 
         try {
-            value3 = std::stod(battery_temp_C);
+            value3 = std::stod(motor_temp_C);
         } catch (...) {
             std::cout << "Invalid value at line " << lineNumber << "\n";
             totalSkipped++;

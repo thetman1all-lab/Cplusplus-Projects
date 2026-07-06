@@ -1,22 +1,22 @@
 Timestamp           : 2026-07-05T08:15:00Z
 Vehicle ID          : TESLA003
 Battery Temperature : 41.20C
-Battery SOC Percent : 41%
-Motor Temperature   : 41.20C
+Battery SOC Percent : 78%
+Motor Temperature   : 61.50C
 Status              : CRITICAL
 ------------------------------------------------------------
 Timestamp           : 2026-07-05T08:35:00Z
 Vehicle ID          : TESLA003
 Battery Temperature : 44.70C
-Battery SOC Percent : 44%
-Motor Temperature   : 44.70C
+Battery SOC Percent : 72%
+Motor Temperature   : 68.20C
 Status              : CRITICAL
 ------------------------------------------------------------
 Timestamp           : 2026-07-05T08:45:00Z
 Vehicle ID          : TESLA001
 Battery Temperature : 42.30C
-Battery SOC Percent : 42%
-Motor Temperature   : 42.30C
+Battery SOC Percent : 76%
+Motor Temperature   : 59.10C
 Status              : CRITICAL
 ------------------------------------------------------------
 Total WARNING records: 3
