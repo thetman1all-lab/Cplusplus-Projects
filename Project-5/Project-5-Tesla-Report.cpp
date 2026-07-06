@@ -219,5 +219,7 @@ int main() {
 
     diagnostic.generateCriticalReport("tesla_fleet_critical_report.txt");
 
+    diagnostic.printSummary();
+
     return 0;
 }
