@@ -6,16 +6,6 @@
 #include <algorithm>
 #include <iomanip>
 
-// TODO: You must have two properly encapsulated classes (VehicleStatus and FleetMonitor).
-
-// TODO: FleetMonitor must use a private helper method for reading.
-
-// TODO: The program must successfully load the data and generate a critical alerts report file.
-
-// TODO: The code should be reasonably organized (no massive duplication).
-
-// TODO: You should be able to explain (in your own words) why certain things are private vs public.
-
 class VehicleStatus{
 
 private:
@@ -62,6 +52,7 @@ public:
 // Manager Class
 //----------------------------------------------------------------------------------------------------------------------
 
+// This class manages a collection of VehicleStatus objects.
 class FleetMonitor{
 private:
     // This vector holds ALL the Fleet objects we load from the files.
@@ -72,13 +63,29 @@ private:
     int totalSkipped = 0;
     int lineNumber = 0;
 
-    void readFileMethod(const std::string& filename);
+    // =(1)=
+    void readSingleFile(const std::string& filename);
 
     // double dataValueToDouble(const std::string& data, const int& linenumber, int& totalSkipped); // Because multiple data values need to be converted, avoid repeating and make a function to convert them from strings to doubles
 
     // int dataValueToInt(const std::string& data, const int& linenumber, int& totalSkipped);
 
 public:
+
+    // =(2)=
+    void loadFromFile(const std::string& diagnostics);
+
+    // Returns how many records are loaded by taking the size of the records vector. Remember only valid records go in the vector
+    // =(3)=
+    size_t getTotalRecords() const { return records.size(); }
+
+    // Writes all critical records to a new text file.
+    // =(4)=
+    void generateCriticalReport(const std::string& filename);
+
+    // TODO: printSummary() — prints a short summary to the console (total records, number of critical records, etc.).
+    // =(5)=
+    void printSummary() const;
 
 
 };
@@ -87,7 +94,8 @@ public:
 // Member function definition for reading files
 //----------------------------------------------------------------------------------------------------------------------
 
-void FleetMonitor::readFileMethod(const std::string& filename) {
+// =(1)=
+void FleetMonitor::readSingleFile(const std::string& filename) {
 
     std::ifstream infile(filename);
 
@@ -160,11 +168,56 @@ void FleetMonitor::readFileMethod(const std::string& filename) {
         }
 
         // Create a FleetMonitor object and store it in the vector
-        VehicleStatus record(timestamp, vehicle_id, battery_temp_C, battery_soc_percent, motor_temp_C, status);
+        VehicleStatus record(timestamp, vehicle_id, value1, value2, value3, status);
         records.push_back(record);
         totalLoaded++;
     }
 
     infile.close();
 
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+// Member function definition for loading files
+//----------------------------------------------------------------------------------------------------------------------
+
+// =(2)=
+void FleetMonitor::loadFromFile(const std::string& diagnostics) {
+    readSingleFile(diagnostics);
+}
+
+
+// =(4)=
+void FleetMonitor::generateCriticalReport(const std::string& filename) {
+    std::ofstream outfile(filename);
+    if (!outfile.is_open()) return;
+
+    int warningCount = 0;
+
+    for (const VehicleStatus& rec : records) {
+        if (rec.isCritical()) {
+            warningCount++;
+            rec.print(outfile);
+            outfile << "------------------------------------------------------------\n";
+        }
+    }
+
+    outfile << "Total WARNING records: " << warningCount << "\n";
+    outfile.close();
+}
+
+// =(5)=
+void FleetMonitor::printSummary() const {
+    std::cout << "Total records loaded: " << totalLoaded << "\n";
+    std::cout << "Total records skipped: " << totalSkipped << "\n";
+}
+
+int main() {
+    FleetMonitor diagnostic;
+
+    diagnostic.loadFromFile("tesla_vehicle_diagnostics.txt");
+
+    diagnostic.generateCriticalReport("tesla_fleet_critical_report.txt");
+
+    return 0;
 }
