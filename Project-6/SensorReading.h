@@ -1,3 +1,6 @@
+#ifndef _SENSORREADING_H_
+#define _SENSORREADING_H_
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -39,3 +42,5 @@ public:
     // Member function to print out data in clear format
     void print(std::ostream& out) const;
 };
+
+#endif

@@ -1,5 +1,4 @@
 #include "TBMMonitor.h"
-#include "SensorReading.h"
 #include <iostream>
 #include <vector>
 #include <string>
@@ -114,7 +113,7 @@ void TBMMonitor::generateCriticalReport(const std::string& filename) const {
             outfile << "------------------------------------------------------------\n";
         }
     }
-    outfile << "Total WARNING records: " << criticalCount << "\n"; // Footer at end of report reads out how many criticals there were
+    outfile << "Total CRITICAL records: " << criticalCount << "\n"; // Footer at end of report reads out how many criticals there were
 
     outfile.close(); // ALWAYS close your files DAMNIT!
 };

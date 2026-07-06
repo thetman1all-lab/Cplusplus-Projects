@@ -1,0 +1,15 @@
+Timestamp: 2026-07-06T09:20:00Z
+Segment ID: SEG-002
+ Pressure: 161.30 bar
+Temperature: 35.60 C
+Vibration Level: 5.20
+Status: CRITICAL
+------------------------------------------------------------
+Timestamp: 2026-07-06T09:35:00Z
+Segment ID: SEG-003
+ Pressure: 155.10 bar
+Temperature: 32.40 C
+Vibration Level: 4.10
+Status: CRITICAL
+------------------------------------------------------------
+Total CRITICAL records: 2

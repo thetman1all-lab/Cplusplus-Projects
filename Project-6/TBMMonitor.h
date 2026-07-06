@@ -1,3 +1,6 @@
+#ifndef _TBMMONITOR_H_
+#define _TBMMONITOR_H_
+
 #include "SensorReading.h"
 #include <iostream>
 #include <vector>
@@ -31,3 +34,5 @@ public:
     // Function to print a small summary to the terminal after data is collected and analyzed
     void printSummary() const;
 };
+
+#endif
