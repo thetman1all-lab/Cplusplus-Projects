@@ -1,5 +1,5 @@
-#ifndef _SENSORREADING_H_
-#define _SENSORREADING_H_
+#ifndef SENSORREADING_H
+#define SENSORREADING_H
 
 #include <iostream>
 #include <vector>

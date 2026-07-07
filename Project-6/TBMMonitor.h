@@ -1,5 +1,5 @@
-#ifndef _TBMMONITOR_H_
-#define _TBMMONITOR_H_
+#ifndef TBMMONITOR_H
+#define TBMMONITOR_H
 
 #include "SensorReading.h"
 #include <iostream>
