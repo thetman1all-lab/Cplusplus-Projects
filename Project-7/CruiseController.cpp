@@ -1,5 +1,4 @@
 #include "CruiseController.h"
-#include "VehicleState.h"
 
 // Constructor
 CruiseController::CruiseController(double p, double i, double d, double max_accel, double min_accel)

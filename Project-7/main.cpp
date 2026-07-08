@@ -1,5 +1,6 @@
 #include "VehicleState.h"
 #include "CruiseController.h"
+#include "DataLogger.h"
 #include <iostream>
 
 int main() {
@@ -9,16 +10,19 @@ int main() {
     double current_speed = 60.0;
     double target_speed = 70.0;
     double acceleration = 0.0;
+    double error = 0.0;
     int step_tracker = 0;
 
     // Create a VehicleState object
-    VehicleState VehSta(current_speed,target_speed,acceleration);
+    VehicleState VehSta(current_speed,target_speed,acceleration,error);
 
     // Create a CruiseController object
     // - Give it PID gains (kp, ki, kd)
     // - Give it max and min acceleration limits
     // * Start with reasonable PID gains in main.cpp (e.g. kp = 0.5, ki = 0.1, kd = 0.05) and adjust from there.
     CruiseController CruCon(1.0,1.0,1.0,3.0,-3.0);
+
+    DataLogger data;
 
     // Print a starting message (like "Starting cruise control simulation...")
     std::cout << "Starting cruise control simulation...\n";
@@ -35,7 +39,7 @@ int main() {
 
         //     3. (Optional but very helpful) Print the current speed and how far off we are from the target
         std::cout << "Current Speed: "           << VehSta.getCurrentSpeed() << " mph\n"
-                  << "Error from Target Speed: " << VehSta.getSpeedError() << " mph\n";
+                  << "Error from Target Speed: " << VehSta.getSpeedError() << " mph\n\n";
 
         //     4. Wait a tiny bit (or just continue to the next step)
 
@@ -44,6 +48,12 @@ int main() {
         //     step_tracker = i;
         // } else {
         // }
+
+        data.collectData(VehSta.getCurrentSpeed(),
+                         VehSta.getTargetSpeed(),
+                         VehSta.getAcceleration(),
+                         VehSta.getSpeedError());
+
         step_tracker++;
     }
 
@@ -51,6 +61,9 @@ int main() {
     std::cout << "Final Speed: " << VehSta.getCurrentSpeed() << " mph\n"
               << "Final Speed Error: " << VehSta.getSpeedError() << " mph\n"
               << "Time Steps Taken: " << step_tracker << " steps\n";
+
+    // Make the data report
+    data.generateDataReport("Speed_Data.txt");
 
     return 0;
 }
