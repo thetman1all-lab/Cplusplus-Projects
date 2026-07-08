@@ -23,13 +23,13 @@ private:
 
     void updateIntegral(double error);
 
-    double calculateDerivative(double error);
+    double calculateDerivative(double error) const;
 
     double applyOutputLimits(double output) const;
 
 public:
     // Constructor
-    CruiseController(double p, double i, double d, double max_accel = 3.0, double min_accel = -3.0);
+    CruiseController(double p, double i, double d, double max_accel, double min_accel);
 
     // This is the main public interface. It should internally:
     // Calculate the error (target_speed - current_speed)
@@ -38,7 +38,7 @@ public:
     // Combine P + I + D terms
     // Clamp the final output between min_acceleration and max_acceleration
     // Store the current error for the next call (as previous_error)
-    double computeControl(double current_speed, double target_speed) const;
+    double computeControl(double current_speed, double target_speed);
 
     // Because the controller has state (integral and previous_error), it is good practice to reset them if needed
     void reset();

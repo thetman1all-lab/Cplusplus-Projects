@@ -1,11 +1,5 @@
 #include "VehicleState.h"
 
-
-// * updateState() is where the vehicle actually changes speed.
-
-// * getSpeedError() is used by the controller, so keep it simple and clear.
-
-
 // Constructor
 VehicleState::VehicleState(double curs, double tars, double acc)
     : current_speed(curs), target_speed(tars), acceleration(acc) {}
