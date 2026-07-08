@@ -1,11 +1,10 @@
 #include "VehicleState.h"
 
 // Constructor
-VehicleState::VehicleState(double curs, double tars, double acc, double err)
+VehicleState::VehicleState(double curs, double tars, double acc)
     : current_speed(curs),
       target_speed(tars),
-      acceleration(acc),
-      error(err)
+      acceleration(acc)
 {}
 
 // Getters
@@ -17,7 +16,7 @@ double VehicleState::getSpeedError() const { return target_speed - current_speed
 // This is where the vehicle actually changes speed by applying acceleration to change speed
 void VehicleState::updateState(double new_acceleration) {
     acceleration = new_acceleration;
-    current_speed = current_speed + acceleration;
+    current_speed += acceleration;
 
     // Bounds checking (e.g. speed can't go negative)
     if (current_speed < 0) {

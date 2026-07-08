@@ -14,7 +14,7 @@ int main() {
     int step_tracker = 0;
 
     // Create a VehicleState object
-    VehicleState VehSta(current_speed,target_speed,acceleration,error);
+    VehicleState VehSta(current_speed,target_speed,acceleration);
 
     // Create a CruiseController object
     // - Give it PID gains (kp, ki, kd)
