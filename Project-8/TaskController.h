@@ -20,7 +20,6 @@ private:
 
     // Helper methods for the state machine
     void transitionTo(TaskState new_state);
-    bool checkConditionsForCurrentState();
 
 public:
     // Constructor takes a reference to an existing RobotArm

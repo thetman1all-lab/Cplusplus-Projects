@@ -1,5 +1,16 @@
 #include "TaskController.h"
 
+
+// Helper method for the state machine
+void TaskController::transitionTo(TaskState new_state) {
+    current_state = new_state;
+}
+
+ // Constructor takes a reference to an existing RobotArm
+TaskController::TaskController(RobotArm& robot_arm)
+    : arm(robot_arm)
+{}
+
 void TaskController::step() {
 
     // First, check what state we are currently in
@@ -67,8 +78,13 @@ void TaskController::step() {
             // In a real system we might try to recover or stop safely.
             break;
     }
+}
 
 TaskState TaskController::getCurrentState() const {
+    return current_state;
 }
 
-}
+ // Optional: Reset the state machine
+void TaskController::reset() {
+    current_state = TaskState::IDLE;
+    }
