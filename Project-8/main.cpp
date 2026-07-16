@@ -1,5 +1,7 @@
 #include "RobotArm.h"
 #include "TaskController.h"
+#include <chrono>
+#include <thread>
 
 int main(){
 
@@ -29,11 +31,11 @@ RobotArm robot_arm(0, 5, -18);
 TaskController controller(robot_arm);
 
 // Print a message like: "Starting pick and place simulation..."
-std::cout << "Buckle the hell up, we're moking a 1D robot arm. ALso, starting pick and place simulation";
+std::cout << "Buckle the hell up, we're moking a 1D robot arm. ALso, starting pick and place simulation\n\n";
 
 // // Run the task for a number of steps
 // For step from 1 to 60 (or until task is done):
-while (!robot_arm.release()) {
+while (controller.getCurrentState() != TaskState::DONE) {
     // Let the state machine think and act for one time step
     // Call controller.step()
     controller.step();
@@ -46,6 +48,7 @@ while (!robot_arm.release()) {
     robot_arm.printStatus();
 
     //     // Small pause so the output is readable (optional)
+    std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
 }
 

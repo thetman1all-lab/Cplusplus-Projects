@@ -34,7 +34,7 @@ void TaskController::step() {
             }
             break;
 
-        case TaskState::GRASPING:
+        case TaskState::GRASPING: {
             // We are at the object and trying to pick it up
             bool success = arm.grasp();
 
@@ -46,6 +46,7 @@ void TaskController::step() {
                 transitionTo(TaskState::ERROR);
             }
             break;
+        }
 
         case TaskState::MOVING_TO_PLACE:
             // We have the object and now need to take it to the drop location
@@ -57,7 +58,7 @@ void TaskController::step() {
             }
             break;
 
-        case TaskState::RELEASING:
+        case TaskState::RELEASING: {
             // We are at the drop location and need to let go of the object
             bool released = arm.release();
 
@@ -67,6 +68,7 @@ void TaskController::step() {
                 transitionTo(TaskState::ERROR);
             }
             break;
+        }
 
         case TaskState::DONE:
             // Task is finished. We can stay here or do nothing.
