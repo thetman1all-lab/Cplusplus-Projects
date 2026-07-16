@@ -1,3 +1,22 @@
+#include "RobotArm.h"
+
+int main(){
+
+    RobotArm roarm(0, 5, 10);
+
+    for (int i = 0; i < 12; i++ ) {
+        
+        roarm.printStatus(); // Print what the fuck is going on
+
+        roarm.grasp(); // Grasp the damn thing? HAS TO BE CALLED IF YOU WANT ROBO TO GRASP THE FUCKING OBJECT!
+
+        roarm.moveToward(roarm.getPickPosition()); // Gotta move yo ass sometime in this lifetime
+
+        
+    }
+    return 0;
+}
+
 // Start the program
 
 // // Create the physical robot arm

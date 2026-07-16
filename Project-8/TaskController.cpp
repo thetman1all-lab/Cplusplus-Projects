@@ -67,4 +67,8 @@ void TaskController::step() {
             // In a real system we might try to recover or stop safely.
             break;
     }
+
+TaskState TaskController::getCurrentState() const {
+}
+
 }
