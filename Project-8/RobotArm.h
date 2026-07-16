@@ -24,9 +24,9 @@ public:
     bool release();
 
     // Getters
-    double getPosition() const;
-    bool isHoldingObject() const;
-    double getPickPosition() const;
+    double getPosition()      const;
+    bool   isHoldingObject()  const;
+    double getPickPosition()  const;
     double getPlacePosition() const;
 
     // Helper: Check if arm is close enough to a target
