@@ -90,3 +90,38 @@ TaskState TaskController::getCurrentState() const {
 void TaskController::reset() {
     current_state = TaskState::IDLE;
     }
+
+    // Get state name string (useful for visualizing the current state as a string)
+    std::string TaskController::getStateString() const {
+
+        switch (current_state)
+        {
+        case TaskState::IDLE:
+            return "IDLE";
+            break;
+
+        case TaskState::MOVING_TO_PICK:
+            return "MOVING_TO_PICK";
+            break;
+        
+        case TaskState::GRASPING:
+            return "GRASPING";
+            break;
+
+        case TaskState::MOVING_TO_PLACE:
+            return "MOVING_TO_PLACE";
+            break;
+
+        case TaskState::RELEASING:
+            return "RELEASING";
+            break;
+
+        case TaskState::DONE:
+            return "DONE";
+            break;
+
+        case TaskState::ERROR:
+            return "ERROR";
+            break;
+        }
+    }

@@ -45,10 +45,12 @@ while (controller.getCurrentState() != TaskState::DONE) {
     //     Print the current state of the TaskController
     //     Print the current position of the RobotArm
     //     Print whether it is holding the object or not
+    std::cout << "State: " << controller.getStateString() << "\n";
     robot_arm.printStatus();
+    
 
     //     // Small pause so the output is readable (optional)
-    std::this_thread::sleep_for(std::chrono::milliseconds(500));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 }
 

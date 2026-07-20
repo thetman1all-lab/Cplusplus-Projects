@@ -31,6 +31,9 @@ public:
     // Get current state (useful for printing/debugging)
     TaskState getCurrentState() const;
 
+    // Get state name string (useful for visualizing the current state as a string)
+    std::string getStateString() const;
+
     // Optional: Reset the state machine
     void reset();
 };
