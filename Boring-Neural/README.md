@@ -1,0 +1,1 @@
+This is a project folder for a C++ Neural Network
