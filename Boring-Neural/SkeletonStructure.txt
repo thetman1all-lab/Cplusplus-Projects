@@ -1,0 +1,28 @@
+SoilNet/                          # or PrufrockGroundNet/
+├── CMakeLists.txt                # or Makefile
+├── README.md
+├── data/                         # place downloaded soil images here (train/ val/ test/ or class folders)
+├── include/
+│   ├── Tensor.hpp                # core multi-dimensional array + math ops
+│   ├── Layer.hpp                 # abstract base
+│   ├── DenseLayer.hpp
+│   ├── Conv2DLayer.hpp
+│   ├── MaxPool2DLayer.hpp
+│   ├── FlattenLayer.hpp
+│   ├── Activation.hpp            # ReLU, Softmax, etc. + derivatives
+│   ├── Loss.hpp                  # CrossEntropy (+ Softmax combined for stability)
+│   ├── Optimizer.hpp             # SGD / SGD+momentum / Adam
+│   ├── Network.hpp               # sequential container of layers
+│   ├── Dataset.hpp               # image loading, batching, augmentation hooks
+│   └── Utils.hpp                 # image I/O helpers, one-hot, accuracy, etc.
+├── src/
+│   ├── Tensor.cpp
+│   ├── DenseLayer.cpp
+│   ├── Conv2DLayer.cpp
+│   ├── MaxPool2DLayer.cpp
+│   ├── ... (one .cpp per header that needs it)
+│   ├── Network.cpp
+│   ├── Dataset.cpp
+│   └── main.cpp                  # training / inference entry point
+├── models/                       # saved weights
+└── tests/                        # optional unit tests for matrix ops, layer gradients
