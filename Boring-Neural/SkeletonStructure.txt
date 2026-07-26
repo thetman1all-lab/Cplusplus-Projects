@@ -1,4 +1,4 @@
-SoilNet/                          # or PrufrockGroundNet/
+PrufrockGroundNet/
 ├── CMakeLists.txt                # or Makefile
 ├── README.md
 ├── data/                         # place downloaded soil images here (train/ val/ test/ or class folders)
