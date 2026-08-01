@@ -23,6 +23,7 @@ PrufrockGroundNet/
 │   ├── ... (one .cpp per header that needs it)
 │   ├── Network.cpp
 │   ├── Dataset.cpp
+│   ├── 
 │   └── main.cpp                  # training / inference entry point
 ├── models/                       # saved weights
 └── tests/                        # optional unit tests for matrix ops, layer gradients
